@@ -3,7 +3,7 @@ import os
 
 import dotenv
 
-import credentials, http_error, cards_list
+from . import credentials, http_error, cards_list
 
 if __name__ == "__main__":
     dotenv.load_dotenv()
