@@ -16,7 +16,8 @@ def request_api_raw(
     session = requests.Session()
     response = session.request(
         method,
-        "https://marketplace-api.wildberries.ru" + endpoint,
+        # "https://marketplace-api.wildberries.ru" + endpoint,
+        endpoint,
         headers=credentials.to_headers(),
         data=data,
     )

@@ -55,7 +55,7 @@ def get_orders(
 ) -> GetNewOrdersResponseResultWrapper:
     return request_api.request_api_json(
         "GET",
-        "/api/v3/orders/new",
+        "https://marketplace-api.wildberries.ru/api/v3/orders/new",
         credentials,
         None,
         response_cls=GetNewOrdersResponseResultWrapper,
