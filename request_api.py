@@ -45,7 +45,7 @@ def request_api_json(
         credentials,
         data.to_json() if data is not None else None,
     )
-    # print("error", response.text, response.status_code)
+    print("error", response.text, response.status_code)
 
     return response_cls.schema().loads(response.text)
 
