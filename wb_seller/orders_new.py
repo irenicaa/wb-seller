@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Generator, Optional
 from dataclasses_json import Undefined, dataclass_json
 
-from . import credentials, request_api
+import credentials, request_api
 
 # Response
 

@@ -1,8 +1,9 @@
 from typing import Optional, TypeVar
 
 import requests
+import os
 
-from . import credentials, http_error, error_response
+import credentials, http_error, error_response
 
 T = TypeVar("T")
 
@@ -13,18 +14,20 @@ def request_api_raw(
     credentials: credentials.Credentials,
     data: Optional[str],
 ) -> requests.models.Response:
+    headers = credentials.to_headers()
+    headers["Content-Type"] = "application/json"
     session = requests.Session()
     response = session.request(
         method,
         # "https://marketplace-api.wildberries.ru" + endpoint,
         endpoint,
-        headers=credentials.to_headers(),
+        headers=headers,
         data=data,
     )
     if response.status_code < 200 or response.status_code >= 300:
         # use the response text both as an error message and as an error response data
         # raise http_error.HTTPError(response.text, response.status_code, response.text)
-        print("error", response.status_code)
+        print("error", response.status_code, response.text)
 
     return response
 
@@ -45,8 +48,6 @@ def request_api_json(
         credentials,
         data.to_json() if data is not None else None,
     )
-    print("error", response.text, response.status_code)
-
     return response_cls.schema().loads(response.text)
 
 

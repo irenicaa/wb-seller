@@ -3,19 +3,14 @@ import os
 
 import dotenv
 
-from . import credentials, http_error, cards_list
+import credentials, http_error, v3_supplies
 
 if __name__ == "__main__":
     dotenv.load_dotenv()
     wb_credentials = credentials.Credentials(
-        os.getenv("TEST2"),
+        os.getenv("AUTHORIZATION"),
     )
-    data = cards_list.PaginatedCards(
-        settings=cards_list.PaginatedCardsSettings(
-            cursor=cards_list.PaginatedCardsCursor(limit=2),
-            filter=cards_list.PaginatedCardsSettingsFilter(withPhoto=-1),
-        )
-    )
+    data = v3_supplies.Supply(name="test")
     print(data.to_json())
-    status = cards_list.get_cards_iterative(wb_credentials, data)
-    print("status", list(status))
+    status = v3_supplies.create_supply(wb_credentials, data)
+    print("status", status)

@@ -6,4 +6,6 @@ class Credentials:
     api_key: str
 
     def to_headers(self) -> dict[str]:
-        return {"Authorization": self.api_key}
+        return {
+            "Authorization": self.api_key,
+        }
