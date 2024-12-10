@@ -1,4 +1,4 @@
-from typing import Optional, TypeVar
+from typing import Optional, TypeVar, Any
 
 import requests
 import os
@@ -49,6 +49,32 @@ def request_api_json(
         data.to_json() if data is not None else None,
     )
     return response_cls.schema().loads(response.text)
+
+
+def request_api_files(
+    method: str,
+    endpoint: str,
+    credentials: credentials.Credentials,
+    files: dict[str, Any],
+    additional_headers: Optional[dict[str, str]] = None,
+) -> requests.models.Response:
+    headers = credentials.to_headers()
+
+    if additional_headers:
+        headers.update(additional_headers)
+
+    session = requests.Session()
+    response = session.request(
+        method,
+        # "https://marketplace-api.wildberries.ru" + endpoint,
+        endpoint,
+        headers=headers,
+        files=files,
+    )
+    if response.status_code < 200 or response.status_code >= 300:
+        # use the response text both as an error message and as an error response data
+        # raise http_error.HTTPError(response.text, response.status_code, response.text)
+        print("error", response.status_code, response.text)
 
 
 # except http_error.HTTPError as error:
