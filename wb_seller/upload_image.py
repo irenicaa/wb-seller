@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Generator, Optional, Any
 from dataclasses_json import Undefined, dataclass_json, DataClassJsonMixin
 
-import credentials, request_api
+from . import credentials, request_api
 
 
 def upload_image(

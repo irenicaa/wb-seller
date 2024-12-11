@@ -2,9 +2,10 @@ from dataclasses import dataclass
 from typing import Generator, Optional
 from dataclasses_json import Undefined, dataclass_json, DataClassJsonMixin
 
-import credentials, request_api
+from . import credentials, request_api
 
 # Request
+
 
 @dataclass
 class Supply(DataClassJsonMixin):

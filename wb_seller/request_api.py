@@ -3,7 +3,7 @@ from typing import Optional, TypeVar, Any
 import requests
 import os
 
-import credentials, http_error, error_response
+from . import credentials, error_response
 
 T = TypeVar("T")
 
