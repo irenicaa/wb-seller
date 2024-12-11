@@ -3,7 +3,7 @@ import os
 
 import dotenv
 
-import credentials, upload_image
+from . import credentials, update_stocks
 
 if __name__ == "__main__":
     dotenv.load_dotenv()
@@ -11,5 +11,14 @@ if __name__ == "__main__":
         os.getenv("AUTHORIZATION"),
     )
 
-    image_filename = "file_name"
-    upload_image.upload_image(wb_credentials, image_filename, 1, "sku_id")
+    data = update_stocks.Stocks(
+        stocks=[
+            update_stocks.StocksData(
+                sku="DATA",
+                amount=1,
+            )
+        ]
+    )
+
+    warehouse_id = os.getenv("WAREHOUSE_ID")
+    update_stocks.update_stocks(wb_credentials, data, warehouse_id)
