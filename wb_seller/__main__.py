@@ -3,22 +3,22 @@ import os
 
 import dotenv
 
-from . import credentials, update_stocks
+from . import credentials, set_price_discount
 
 if __name__ == "__main__":
     dotenv.load_dotenv()
     wb_credentials = credentials.Credentials(
-        os.getenv("AUTHORIZATION"),
+        os.getenv("PRICE"),
     )
 
-    data = update_stocks.Stocks(
-        stocks=[
-            update_stocks.StocksData(
-                sku="DATA",
-                amount=1,
+    data = set_price_discount.Price(
+        data=[
+            set_price_discount.PriceData(
+                nmID=123456,
+                discount=40,
             )
         ]
     )
 
     warehouse_id = os.getenv("WAREHOUSE_ID")
-    update_stocks.update_stocks(wb_credentials, data, warehouse_id)
+    set_price_discount.update_price(wb_credentials, data)
